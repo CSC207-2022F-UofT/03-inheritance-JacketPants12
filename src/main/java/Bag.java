@@ -14,6 +14,11 @@ public abstract class Bag {
      *       - an array of Strings named contents
      */
 
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    private String[] contents;
+
 
 
 
@@ -27,6 +32,13 @@ public abstract class Bag {
      * its contents.)
      */
 
+    Bag(String color, int capacity){
+        this.color = color;
+        this.capacity = capacity;
+        this.numberOfContents = 0;
+        this.contents = new String[capacity];
+    }
+
 
 
 
@@ -38,14 +50,26 @@ public abstract class Bag {
      *           - getCapacity
      */
 
+    public String getColor() {
+        return color;
+    }
 
+    public int getNumberOfContents() {
+        return numberOfContents;
+    }
 
+    public int getCapacity() {
+        return capacity;
+    }
 
     /*
      * TODO: Create a setter function called setColor which sets the
      *       color of this bag to the given color.
      */
 
+    public void setColor(String color) {
+        this.color = color;
+    }
 
 
 
@@ -60,6 +84,15 @@ public abstract class Bag {
      *       This method should return true if the item was added
      *       and false otherwise.
      */
+
+    Boolean addItem(String item){
+        if (numberOfContents < capacity) {
+            this.contents[this.numberOfContents++] = item;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
 
@@ -76,6 +109,12 @@ public abstract class Bag {
      * @return
      */
 
+    String popItem() {
+        String item = this.contents[--this.numberOfContents];
+        this.contents[this.numberOfContents] = null;
+        return item;
+    }
+
 
 
 
@@ -86,8 +125,11 @@ public abstract class Bag {
      * @param n the amount to increase this Bag's capacity by
      */
     public void increaseCapacity(int n) {
-        // TODO: Implement this method.
+        String[] newContents = new String[this.capacity+n];
 
+        if (this.capacity >= 0) System.arraycopy(this.contents, 0, newContents, 0, this.capacity);
+        this.capacity += n;
+        this.contents = newContents;
     }
 
     /**
